@@ -1,0 +1,107 @@
+<div id="listUser" class="row">
+    <span *ngIf="isListUser; then condition1 else condition2">Employee List</span>
+    <!--<ng-template #condition1>Condition is valid</ng-template>
+   <ng-template #condition2>Condition is invalid</ng-template>-->
+    <ng-template #condition1> <!--List USer-->
+        <div class="col-md-12">
+            <card cardTitle="Employee List" >
+                <div class="btn-group col-md-12" >
+                  <button class="btn btn-lg btn-primary pull-right" (click)="addUser()"> Add New
+                  </button>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Class Name{{view}}</th>
+                            <th>Staff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr (click)="openClasses(item.id)" *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+                            <td>{{item.name}}</td>
+                            <td>{{item.user.member.firstName}}</td>
+                           
+                        </tr>
+                    </tbody>
+                </table>
+                <form class="pagination-wrapper">
+                    <div class="form-group pages">
+                        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+                        </pagination-controls>
+                    </div>
+                    <div class="form-group options pages">
+                        <div class="input-group input-group-sm">
+                            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+                              <option>1</option>
+                              <option>5</option>
+                              <option>10</option>
+                              <option>20</option>
+                              <option>50</option>
+                              <option>100</option>
+                              <option>200</option>
+                            </select>
+                            <span class="input-group-addon addon-right">Per Page</span>
+                        </div>
+                    </div>
+                </form>
+            </card>
+        </div>
+    </ng-template>
+    <ng-template #condition2><!-- Add / Edit New -->
+        <div id="viewUser" class="row">
+            <div class="col-md-12">
+                <div class="row card card-block">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-group">
+                       
+                        <card cardTitle="Class">
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">Class Name</label>
+                                    <input type="text" class="form-control" formControlName="name" placeholder="Class Name" >
+                                </div>
+                                <div  class="col-md-6 form-group">
+                                    <label class="control-label">Description</label>
+                                    <input type="text" class="form-control" formControlName="description" placeholder="Class description">
+                                </div>
+                                <div  *ngIf="isEditUser" class="col-md-12 form-group">
+                                    <label class="control-label">Staff</label>
+                                    <input type="text" class="form-control" formControlName="mappedUser" disabled placeholder="Seleted Staff">
+                                </div>
+                            
+                                <div class="form-group col-md-12">
+                              <label class="control-label">Select Staff</label>
+                              <select name="staff" id="staff" formControlName="user" class="form-control">
+                                    <option *ngFor="let user of unMappedUsers" [value]="user.email">{{user.member.lastName}}, {{user.member.firstName}}</option>
+                              </select>
+                            </div>
+                            
+                          </card>
+                        <div class="col-md-12">
+                            <!--<div *ngIf="!isEditUser" class="col-md-4">
+                            <button class="btn btn-primary" (click)="isEditUser=true">Edit Profile</button>
+                        </div>-->
+                            <div *ngIf="isEditUser||isAddUser" class="col-md-4">
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </div>
+                            <div *ngIf="isEditUser" class="col-md-4">
+                                <button type="button" class="btn btn-primary" (click)="deleteUser()">Delete Profile</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary" (click)="isListUser=true;">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!--<div class="col-md-12 form-group">
+        <label class="control-label">Username</label>
+        <input type="text" class="form-control" placeholder="Username">
+      </div>
+      <div class="col-md-12 form-group">
+        <label class="control-label">Username</label>
+        <textarea class="form-control" placeholder="Username"></textarea>
+      </div>-->
+
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

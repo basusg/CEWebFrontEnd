@@ -1,0 +1,60 @@
+<div id="viewUser" class="row">
+    <div class="col-md-4">
+        <profile></profile>
+    </div>
+    <div class="col-md-8">
+        <div class="row card card-block">
+            <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+                <div class="col-md-6 form-group">
+                    <label class="control-label">Email</label>{{userData.email}}
+                    <input type="text" class="form-control" placeholder="Username" [(ngModel)]="userData.email">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="control-label">Created By</label>
+                    <input type="text" class="form-control" placeholder="Userpost" value="{{userData.createdBy}}">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="control-label">First Name</label>
+                    <input type="text" class="form-control" placeholder="Username" value="{{userData.firstName}}">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="control-label">Middle Name</label>
+                    <input type="text" class="form-control" placeholder="Username" value="{{userData.middleName}}">
+                </div>
+                <div class="col-md-4 form-group">
+                    <label class="control-label">Las Name</label>
+                    <input type="text" class="form-control" placeholder="Username" value="{{userData.lastName}}">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="control-label">Created At</label>
+                    <input type="text" class="form-control" placeholder="Username" value="{{userData.createdTime}}">
+                </div>
+                <div class="col-md-6 form-group">
+                    <label class="control-label">Modified At</label>
+                    <input type="text" class="form-control" placeholder="Userpost" value="{{userData.modifiedTime}}">
+                </div>
+                <div class="col-md-12 form-group">
+                    <input type="checkbox" value="a" (click)="click($event)">A
+                    <input type="checkbox" value="b" (click)="click($event)">B
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <button class="btn btn-primary">Update Profile</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-primary">Cancel</button>
+                    </div>
+                </div>
+            </form>
+            <!--<div class="col-md-12 form-group">
+        <label class="control-label">Username</label>
+        <input type="text" class="form-control" placeholder="Username">
+      </div>
+      <div class="col-md-12 form-group">
+        <label class="control-label">Username</label>
+        <textarea class="form-control" placeholder="Username"></textarea>
+      </div>
+      -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,216 @@
+<div id="listUser" class="row">
+    <span *ngIf="isListUser; then condition1 else condition2">Employee List</span>
+    <!--<ng-template #condition1>Condition is valid</ng-template>
+   <ng-template #condition2>Condition is invalid</ng-template>-->
+    <ng-template #condition1> <!--List USer-->
+        <div class="col-md-12">
+            <card cardTitle="Employee List" >
+                <div class="btn-group col-md-12" >
+                  <button class="btn btn-lg btn-primary pull-right" (click)="addUser()"> Add New
+                  </button>
+                </div>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <!--<th>FIRSTNAME</th>
+            <th>LASTNAME</th>
+            <th>USERNAME</th>-->
+                            <th>EMAIL{{view}}</th>
+                            <th>Last Modified</th>
+                            <!--            <th>AGE</th>-->
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr (click)="openUser(item.id)" *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
+                            <!--<td>{{item.firstName}}</td>
+            <td>{{item.lastName}}</td>
+            <td>{{item.username}}</td>-->
+                            <td>{{item.email}}</td>
+                            <td>{{item.modifiedTime | date : "MM/dd/yy"}}</td>
+                            <!--<td>{{item.age}}</td>-->
+                            <td>
+                                <ul style="list-style: none;">
+                                    <li *ngFor="let roleItem of item.roles">{{roleItem.role}}</li>
+                                </ul>
+                            </td>
+                            <!--<td>
+              <span class="label label-info">info</span>
+            </td>-->
+                        </tr>
+                    </tbody>
+                </table>
+                <form class="pagination-wrapper">
+                    <div class="form-group pages">
+                        <pagination-controls class="my-pagination" id="pager" (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true" autoHide="true" previousLabel="Prev" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page">
+                        </pagination-controls>
+                    </div>
+                    <div class="form-group options pages">
+                        <div class="input-group input-group-sm">
+                            <select class="form-control" name="pageChangedName" [(ngModel)]="pageSize" (ngModelChange)="loadData()">
+                              <option>1</option>
+                              <option>5</option>
+                              <option>10</option>
+                              <option>20</option>
+                              <option>50</option>
+                              <option>100</option>
+                              <option>200</option>
+                            </select>
+                            <span class="input-group-addon addon-right">Per Page</span>
+                        </div>
+                    </div>
+                </form>
+            </card>
+        </div>
+    </ng-template>
+    <ng-template #condition2>
+        <div id="viewUser" class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <span *ngIf="uploadForm; then uploadForm1 else profileForm">Employee List</span>
+                    <ng-template #profileForm>
+                        <div class="profile-wrap animated fadeIn">
+                            <div class="info-wrap">
+                                <div class="avatar-wrap">
+                                    <img src="http://localhost:8080/{{dpImg}}" alt="avatar">
+                                </div>
+                                <span class="user-name">{{firstName}} {{lastName}}</span>
+                                <span class="user-post">{{middleName}}</span>
+                                <span class="map-location">
+        <i class="fa fa-map-marker"></i>
+        <span>Country</span>
+                                </span>
+                            </div>
+                            <div class="profile-head">
+                                <img src="http://localhost:8080/{{dpImg}}" alt="profile-head-bg" class="profile-head-bg">
+                            </div>
+                            <div class="profile-foot">
+                                <h4>Roles</h4>
+                                <div class="skills-wrap">
+                                    <a href="#" *ngFor="let role of roles.roleList" class="skills-tag">{{role.role}}</a>
+                                    <!--<a href="#" class="skills-tag">Admin</a>
+        <a href="#" class="skills-tag">Staff</a>
+        <a href="#" class="skills-tag">interface</a>
+        <a href="#" class="skills-tag">interface</a>
+        <a href="#" class="skills-tag">interface</a>
+        <a href="#" class="skills-tag">interface</a>-->
+                                </div>
+                                <h4>Actions</h4>
+                                <ul class="contact-way-item">
+                                    <li class="contact-way-list">
+                                        <a (click)="uploadForm=true" class="info-icon fa fa-camera"></a>
+                                    </li>
+                                    <!--<li class="contact-way-list">
+                                    <a href="#" class="info-icon fa fa-wechat"></a>
+                                </li>
+                                <li class="contact-way-list">
+                                    <a href="#" class="info-icon fa fa-weibo"></a>
+                                </li>
+                                <li class="contact-way-list">
+                                    <a href="#" class="info-icon fa fa-facebook"></a>
+                                </li>
+                                <li class="contact-way-list">
+                                    <a href="#" class="info-icon fa fa-github"></a>
+                                </li>
+                                <li class="contact-way-list">
+                                    <a href="#" class="info-icon fa fa-envelope"></a>
+                                </li>-->
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #uploadForm1>
+                        <div class="row">
+                            <div class="col-md-12">
+                               <div id="dragNDrop">
+                                  <div style="position:relative;padding-left:6px">
+                                    <div id="div1" (drop)="drop($event)" (dragover)="allowDrop($event)">
+                                      <p>Drag N Drop</p>
+                                    </div>
+                                    <span class='label label-info' id="upload-file-info{{id}}">{{selectedFiles[0]?.name}}</span>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12" style="    margin-top: 15px;">
+                                <div class="col-md-4">
+                                    <button type="button" class="btn btn-success btn-xs" (click)="uploadDP()" ><span class="glyphicon glyphicon-upload"></span> Upload</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-primary" (click)="resetForm()">Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="row card card-block">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-group">
+                        <div class="col-md-6 form-group">
+                            <label class="control-label">Email</label>
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email" >
+                        </div>
+                        <div *ngIf="!isAddUser"  class="col-md-6 form-group">
+                            <label class="control-label">Created By</label>
+                            <input type="text" class="form-control" formControlName="createdBy" disabled placeholder="Created By">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">First Name</label>
+                            <input type="text" class="form-control" formControlName="firstName" placeholder="First Name" >
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Middle Name</label>
+                            <input type="text" class="form-control" formControlName="middleName" placeholder="Middle Name" >
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label class="control-label">Last Name</label>
+                            <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name" >
+                        </div>
+                        <div *ngIf="!isAddUser" class="col-md-6 form-group">
+                            <label class="control-label">Created At</label>
+                            <input type="text" class="form-control" formControlName="createdAt" disabled placeholder="Created At">
+                        </div>
+                        <div *ngIf="!isAddUser" class="col-md-6 form-group">
+                            <label class="control-label">Modified At</label>
+                            <input type="text" class="form-control" formControlName="modifiedAt" disabled placeholder="Modifed At">
+                        </div>
+                        <!--<div class="col-md-12 form-group">
+                            <label class="control-label">Modified At</label>
+                            <input type="text" class="form-control" disabled placeholder="Modifed At" value="{{userData.modifiedTime}}">
+                        </div>-->
+                        <div class="col-md-12 form-group">
+                            <label class="control-label">Roles</label>
+                            <div class="form-control" *ngFor="let role of roleList.controls; let i=index">
+                                <input type="checkbox" [formControl]="role" /> {{roles.roleList[i].role}}
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <!--<div *ngIf="!isEditUser" class="col-md-4">
+                            <button class="btn btn-primary" (click)="isEditUser=true">Edit Profile</button>
+                        </div>-->
+                            <div *ngIf="isEditUser||isAddUser" class="col-md-4">
+                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                            </div>
+                            <div *ngIf="isEditUser" class="col-md-4">
+                                <button type="button" class="btn btn-primary" (click)="deleteUser()">Delete Profile</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary" (click)="isListUser=true;">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!--<div class="col-md-12 form-group">
+        <label class="control-label">Username</label>
+        <input type="text" class="form-control" placeholder="Username">
+      </div>
+      <div class="col-md-12 form-group">
+        <label class="control-label">Username</label>
+        <textarea class="form-control" placeholder="Username"></textarea>
+      </div>-->
+
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>
