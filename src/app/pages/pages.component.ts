@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { GlobalService } from '../shared/services/global.service';
+import { AuthService } from './service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pages',
@@ -9,7 +11,7 @@ import { GlobalService } from '../shared/services/global.service';
 
 export class PagesComponent {
 
-constructor(public _globalService: GlobalService) { }
+constructor(private auth: AuthService, private router: Router,public _globalService: GlobalService) { }
 
   ngOnInit() {
     console.log("Pages Auth: ");
@@ -19,5 +21,21 @@ constructor(public _globalService: GlobalService) { }
     }, error => {
       console.log('Error: ' + error);
     });*/
+
+    let auth;
+    if (localStorage.getItem('MyApp_Auth'))
+       auth = localStorage.getItem('MyApp_Auth');
+   var obj = this;
+    if(auth){
+        this.auth.authenticate(JSON.parse(auth),function(user){
+        console.log("MNB Success Call back");
+        // setting new item
+        localStorage.setItem('loggedUser', JSON.stringify(user));
+        //obj._globalService.userBusChanged(user);
+            //obj.router.navigate(['/pages']);
+        });
+    }else{
+      obj.router.navigate(['/login']);
+    }
   }
 }

@@ -12,28 +12,30 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <!--<th>FIRSTNAME</th>
-            <th>LASTNAME</th>
+                            <th>NAME</th>
+            <!--<th>LASTNAME</th>
             <th>USERNAME</th>-->
-                            <th>EMAIL{{view}}</th>
+                            <th>EMAIL</th>
                             <th>Last Modified</th>
                             <!--            <th>AGE</th>-->
-                            <th>Role</th>
+                            <!--<th>Role</th>-->
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr (click)="openUser(item.id)" *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
-                            <!--<td>{{item.firstName}}</td>
-            <td>{{item.lastName}}</td>
+                            <td>{{item.lastName}}, {{item.firstName}}</td>
+            <!--<td>{{item.lastName}}</td>
             <td>{{item.username}}</td>-->
-                            <td>{{item.email}}</td>
+                            <td>{{item.user.email}}</td>
                             <td>{{item.modifiedTime | date : "MM/dd/yy"}}</td>
+                            <td>{{item.user.status?"Enabled":"Disabled"}}</td>
                             <!--<td>{{item.age}}</td>-->
-                            <td>
+                            <!--<td>
                                 <ul style="list-style: none;">
                                     <li *ngFor="let roleItem of item.roles">{{roleItem.role}}</li>
                                 </ul>
-                            </td>
+                            </td>-->
                             <!--<td>
               <span class="label label-info">info</span>
             </td>-->
@@ -72,7 +74,7 @@
                         <div class="profile-wrap animated fadeIn">
                             <div class="info-wrap">
                                 <div class="avatar-wrap">
-                                    <img src="http://localhost:8080/{{dpImg}}" alt="avatar">
+                                    <img src="http://localhost:4200/{{dpImg}}" alt="avatar">
                                 </div>
                                 <span class="user-name">{{firstName}} {{lastName}}</span>
                                 <span class="user-post">{{middleName}}</span>
@@ -82,7 +84,7 @@
                                 </span>
                             </div>
                             <div class="profile-head">
-                                <img src="http://localhost:8080/{{dpImg}}" alt="profile-head-bg" class="profile-head-bg">
+                                <img src="http://localhost:4200/{{dpImg}}" alt="profile-head-bg" class="profile-head-bg">
                             </div>
                             <div class="profile-foot">
                                 <h4>Roles</h4>

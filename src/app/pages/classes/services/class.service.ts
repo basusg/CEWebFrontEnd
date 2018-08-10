@@ -11,9 +11,14 @@ export class ClassService {
   constructor(private restCallService: RestCallService) {
   }
     
-    getAllClass (callback){
+    getAllClass (id,callback){
         console.log("getAllEmployee");
-        this.restCallService.getRest(null,null,'class',callback);
+        if(id){
+            this.restCallService.getRest(id,null,'class',callback);
+        }else{
+            this.restCallService.getRest(null,null,'class',callback);
+        }
+        
         
     }
     postClass(data,callback){
@@ -21,7 +26,7 @@ export class ClassService {
     }
     putClass(id,data,callback){
          console.log("putEmployee");
-        this.restCallService.putRest(id,'class',data,callback);
+        this.restCallService.putRest('class/update',data,callback);
     }
     deleteClass(id,callback){
         this.restCallService.deleteRest(id,'class',callback);

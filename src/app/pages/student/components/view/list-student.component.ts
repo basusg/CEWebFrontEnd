@@ -122,9 +122,9 @@ export class ListStudentComponent implements OnInit {
       if(this.schoolId){
         
         //schoolId = this._globalService.loggedUser$.subscribe
-        this.classService.getUnMappedUser(this.schoolId,function(res){
-          obj.unMappedUsers = res;
-        });
+        // this.classService.getUnMappedUser(this.schoolId,function(res){
+        //   obj.unMappedUsers = res;
+        // });
       }
     }
 

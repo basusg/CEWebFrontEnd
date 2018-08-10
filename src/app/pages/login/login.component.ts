@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/finally';
 import { GlobalService } from '../../shared/services/global.service';
 
+import {FormBuilder, FormGroup, FormArray,FormControl, Validators} from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,10 +16,31 @@ export class LoginComponent implements OnInit {
     username: '',
     password: ''
   };
-  constructor(private auth: AuthService, private http: HttpClient, private router: Router,public _globalService: GlobalService) {
+  loginForm:FormGroup;
+  constructor(private auth: AuthService, private http: HttpClient, private router: Router,private fb:FormBuilder,public _globalService: GlobalService) {
       //this.auth.authenticate(undefined, undefined);
       console.log("cons: "+this.data.username+":"+this.data.password);
+      this.loginForm = this.fb.group({
+       username:'',
+       password:''
+     });
     }
+    
+
+    onSubmit(value) {
+
+        console.log("cons: "+value.username+":"+value.password);
+        console.log('Basic ' + btoa(value.username + ':' + value.password));
+        var obj = this;
+        //this._globalService.setAuthKey('Basic ' + btoa(this.data.username + ':' + this.data.password));
+        var cred = {username:value.username,password: value.password};
+            this.auth.authenticate(cred,function(user){
+                // setting new item
+            localStorage.setItem('loggedUser', JSON.stringify(user));
+                obj.router.navigate(['/pages']);
+            });
+    }
+
     login(){
     //console.log(this.username);
     console.log("cons: "+this.data.username+":"+this.data.password);

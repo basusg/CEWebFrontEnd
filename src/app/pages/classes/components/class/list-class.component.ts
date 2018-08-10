@@ -53,46 +53,66 @@ export class ListClassComponent implements OnInit {
     loadData() {
       console.log("onload");
       var obj = this;
-      this.classService.getAllClass(function(res){
+      this.classService.getAllClass(null,function(res){
         console.log('callback');
-        obj.classService.setData(res);
-        //this.empList = res;
-        obj.tableData = res;
-        obj.isListUser=true;
-        obj.isEditUser=false;
+        
+          obj.classService.setData(res);
+          //this.empList = res;
+          obj.tableData = res;
+          obj.isListUser=true;
+          obj.isEditUser=false;
+        
         //console.log(obj.employeeService.getData());
         });
     }
 
     openClasses(id){
-      this.getUnMappedUser();
-      var classes = this.classService.getClasses(id);
-      this.form = this.fb.group({
-        id : classes.id,
-        name:classes.name,
-        schoolId:classes.schoolId,
-        description: classes.description,
-        user:classes.user.email,
-        mappedUser: classes.user.member.firstName+", "+classes.user.member.lastName,
+      var obj = this;
+      this.classService.getAllClass(id,function(res){
+        console.log(res);
+        obj.form = obj.fb.group({
+        id:0,
+        name:"",
+        description:"",
+        status:"",
+        user:""
+     });
+     obj.getUnMappedUser();
+      //var classes = this.classService.getClasses(id);
+      obj.form = obj.fb.group({
+        id : res.id,
+        name:res.name,
+        schoolId:res.schoolId,
+        description: res.description,
+        member:res.member.id,
+        mappedUser: res.member.firstName+", "+res.member.lastName,
         status:true
       });
-      this.isAddUser=false;
-      this.isEditUser=true;
-      this.isListUser=false;
-      this.classData = classes;
+      obj.isAddUser=false;
+      obj.isEditUser=true;
+      obj.isListUser=false;
+      obj.classData = res;
+    });
     }
 
     onSubmit(value) {
       console.log("onSubmit");
       console.log(value);
       var obj = this;
+      var memberId = value.member;
+      console.log("memberId "+memberId);
+      if(memberId && memberId==0){
+        memberId = value.mappedUser;
+      }
+      console.log(memberId);
+      debugger;
       var classes = {
         id : value.id,
         name:value.name,
         schoolId:this.schoolId,
         description: value.description,
-        user:{
-          email:value.user
+        member:{
+          id:memberId
         },
         status:true
       }
@@ -124,7 +144,9 @@ export class ListClassComponent implements OnInit {
         
         //schoolId = this._globalService.loggedUser$.subscribe
         this.classService.getUnMappedUser(this.schoolId,function(res){
+          console.log("MNB");
           obj.unMappedUsers = res;
+          obj.unMappedUsers.unshift({id:0,lastName:'Select one'});
         });
       }
     }
@@ -140,7 +162,7 @@ export class ListClassComponent implements OnInit {
       name:"",
       description:"",
       status:"",
-      user:""
+      member:""
    });
     }
 

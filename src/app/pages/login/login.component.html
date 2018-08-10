@@ -1,20 +1,24 @@
 <div class="card card-block login-card">
+    <!--<form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)" class="form-group">-->
   <h3 class="form-label">Welcome To School Page</h3>
   <span class="form-label">School Admin and Staff login page</span>
   <div class="form-group">
+      
     <div class="input-group">
       <span class="input-group-addon addon-left" id="username">
         <i class="fa fa-user fa-fw"></i>
       </span>
-      <input class="form-control with-primary-addon" placeholder="Email Address" type="text" required minlength="4" [(ngModel)]="data.username" id="username" name="username">
+      <input class="form-control with-primary-addon" [(ngModel)]='data.username' placeholder="Email Address" type="text" required minlength="4" id="username" name="username">
     </div>
     <div class="input-group">
       <span class="input-group-addon addon-left" id="password">
         <i class="fa fa-lock fa-fw"></i>
       </span>
-      <input class="form-control with-primary-addon" placeholder="Password" type="password" [(ngModel)]="data.password" id="password" name="password">
+      <input class="form-control with-primary-addon" [(ngModel)]='data.password' placeholder="Password" type="password" id="password" name="password">
     </div>
-    <button class="btn btn-lg btn-primary" (click)="login()">Login</button>
-    <a href="" class="btn btn-link">Register Now. →</a>
+    <button class="btn btn-lg btn-primary" type="submit" (click)='login()' >Login</button>
+    
+    <!--<a href="" class="btn btn-link">Register Now. →</a>-->
   </div>
+<!--</form>-->
 </div>

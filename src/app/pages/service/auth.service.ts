@@ -69,10 +69,13 @@ localStorage.setItem('MyApp_Auth', JSON.stringify(cred));
             // The response body may contain clues as to what went wrong,
             console.log('Backend returned code ${error.status} body was:');
             console.log(error.error);
-            if(error.error.indexOf("401")){
-                alert("Username or Password incorrect");
-            }else{
-                alert("server did not reached");
+            console.log(error.error+"");
+            if(error.error){
+                if(error.error+"".indexOf("401")){
+                    alert("Username or Password incorrect");
+                }else{
+                    alert("server did not reached");
+                }
             }
             localStorage.removeItem('MyApp_Auth');
           }

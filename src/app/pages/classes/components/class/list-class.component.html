@@ -19,7 +19,7 @@
                     <tbody>
                         <tr (click)="openClasses(item.id)" *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
                             <td>{{item.name}}</td>
-                            <td>{{item.user.member.firstName}}</td>
+                            <td>{{item.member.firstName}}</td>
                            
                         </tr>
                     </tbody>
@@ -69,8 +69,8 @@
                             
                                 <div class="form-group col-md-12">
                               <label class="control-label">Select Staff</label>
-                              <select name="staff" id="staff" formControlName="user" class="form-control">
-                                    <option *ngFor="let user of unMappedUsers" [value]="user.email">{{user.member.lastName}}, {{user.member.firstName}}</option>
+                              <select name="staff" id="staff" formControlName="member" class="form-control">
+                                    <option *ngFor="let member of unMappedUsers" [value]="member.id">{{member.lastName}}, {{member.firstName}}</option>
                               </select>
                             </div>
                             
@@ -80,10 +80,10 @@
                             <button class="btn btn-primary" (click)="isEditUser=true">Edit Profile</button>
                         </div>-->
                             <div *ngIf="isEditUser||isAddUser" class="col-md-4">
-                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                                <button type="submit" class="btn btn-primary">Update Class</button>
                             </div>
                             <div *ngIf="isEditUser" class="col-md-4">
-                                <button type="button" class="btn btn-primary" (click)="deleteUser()">Delete Profile</button>
+                                <button type="button" class="btn btn-primary" (click)="deleteUser()">Delete Class</button>
                             </div>
                             <div class="col-md-4">
                                 <button class="btn btn-primary" (click)="isListUser=true;">Cancel</button>

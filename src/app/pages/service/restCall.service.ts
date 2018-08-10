@@ -32,11 +32,20 @@ export class RestCallService {
         this.http.get(url,{headers : headers}).subscribe(response => {
             console.log('success');
             console.log(response)
-            return callback && callback(response);
+            return callback && callback(response,true);
         },error => {
             console.log('error')
             console.log(error);
-            return callback && callback(error);
+            if(error.error){
+                if(error.error+"".indexOf("401")){
+                    alert("Username or Password incorrect");
+                }else{
+                    alert("server did not reached");
+                }
+            }else{
+                alert("server did not reached");
+            }
+            // return callback && callback(error,false);
         });
     }
     postRest(url,data,callback){
@@ -49,19 +58,28 @@ export class RestCallService {
         this.http.post(url,data,{headers : headers}).subscribe(response => {
             console.log('success');
             console.log(response)
-            return callback && callback(response);
+            return callback && callback(response,true);
         },error => {
             console.log('error')
             console.log(error);
-            return callback && callback(error);
+            if(error.error){
+                if(error.error+"".indexOf("401")){
+                    alert("Username or Password incorrect");
+                }else{
+                    alert("server did not reached");
+                }
+            }else{
+                alert("server did not reached");
+            }
+            // return callback && callback(error,false);
         });
     }
-    putRest(id,url,data,callback){
+    putRest(url,data,callback){
     
     url = this.hostURL+url;
-        if(id){
-            url= url+'/'+id;
-        }
+        // if(id){
+        //     url= url+'/'+id;
+        // }
         console.log("URL"+url);
        console.log(this.getHeader())
         let cred = this.getHeader() ? JSON.parse(this.getHeader()) : {};
@@ -70,11 +88,20 @@ export class RestCallService {
         this.http.put(url, data,{headers : headers}).subscribe(response => {
             console.log('success');
             console.log(response)
-            return callback && callback(response);
+            return callback && callback(response,true);
         },error => {
             console.log('error')
             console.log(error);
-            return callback && callback(error);
+            if(error.error){
+                if(error.error+"".indexOf("401")){
+                    alert("Username or Password incorrect");
+                }else{
+                    alert("server did not reached");
+                }
+            }else{
+                alert("server did not reached");
+            }
+            // return callback && callback(error,false);
         });
     }
     deleteRest(id,url,callback){
@@ -89,11 +116,23 @@ export class RestCallService {
         this.http.delete(url,{headers : headers}).subscribe(response => {
             console.log('success');
             console.log(response)
-            return callback && callback(response);
+            return callback && callback(response,true);
         },error => {
             console.log('error')
             console.log(error);
-            return callback && callback(error);
+            if(error.status==200){
+                return;
+            }
+            if(error.error){
+                if(error.error+"".indexOf("401")){
+                    alert("Username or Password incorrect");
+                }else{
+                    alert("server did not reached");
+                }
+            }else{
+                alert("server did not reached");
+            }
+            // return callback && callback(error,false);
         });
     }
     

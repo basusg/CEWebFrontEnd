@@ -11,32 +11,37 @@ export class EmployeeService {
   constructor(private restCallService: RestCallService) {
   }
     
-    getAllEmployee (callback){
+    getAllEmployee (id,callback){
         console.log("getAllEmployee");
-        this.restCallService.getRest(null,null,'user',callback);
+        if(id){
+            this.restCallService.getRest(id,null,'member',callback);
+        }else{
+            this.restCallService.getRest(null,null,'member',callback);
+        }
+        
         
     }
     getEmployee (id){
     
     }
     postEmployee(data,callback){
-        this.restCallService.postRest('user/add',data,callback);
+        this.restCallService.postRest('member/add',data,callback);
     }
-    putEmployee(id,data,callback){
+    putEmployee(data,callback){
          console.log("putEmployee");
-        this.restCallService.putRest(id,'user',data,callback);
+        this.restCallService.putRest('member/update',data,callback);
     }
     deleteEmployee(id,callback){
-        this.restCallService.deleteRest(id,'user',callback);
+        this.restCallService.deleteRest(id,'member',callback);
     }
     //User Role
     getRole (callback){
         this.restCallService.getRest(null,null,'user/role',callback);
     }
     
-      pushFileToStorage(file: File) {
-        return this.restCallService.pushFileToStorage(file,'dpImg','user/uploadDP');
-      }
+    //   pushFileToStorage(file: File) {
+    //     return this.restCallService.pushFileToStorage(file,'dpImg','user/uploadDP');
+    //   }
   
    DATA = [
     ];
