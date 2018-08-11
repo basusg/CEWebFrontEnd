@@ -11,7 +11,7 @@ const childRoutes: Routes = [
             { path: '', redirectTo: 'list-student', pathMatch: 'full' },
             { path: 'list-student', component: ListStudentComponent },
            //{ path: 'view-user/:id', component: ViewUserComponent },
-            {path: 'class/**',redirectTo: ''}
+            // {path: 'class/**',redirectTo: ''}
             //{ path: 'data-table', component: DataTableComponent },
         ]
     }  

@@ -4,27 +4,36 @@ import { RestCallService } from '../../service/restCall.service';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable()
-export class ClassService {
+export class StudentService {
 
   empList = {};
 
   constructor(private restCallService: RestCallService) {
   }
     
-    getAll (callback){
+    getAll (id,callback){
         console.log("getAllEmployee");
-        this.restCallService.getRest(null,null,'class',callback);
+        if(id){
+            this.restCallService.getRest(id,null,'student',callback);
+        }else{
+            this.restCallService.getRest(null,null,'student',callback);
+        }
+        
         
     }
     post(data,callback){
-        this.restCallService.postRest('class/add',data,callback);
+        this.restCallService.postRest('student/add',data,callback);
     }
     put(id,data,callback){
          console.log("putEmployee");
-        this.restCallService.putRest(id,'class',data,callback);
+        this.restCallService.putRest('student/update',data,callback);
     }
     delete(id,callback){
-        this.restCallService.deleteRest(id,'class',callback);
+        this.restCallService.deleteRest(id,'student',callback);
+    }
+
+    getClassList(id,callback){
+        this.restCallService.getRest(id,null,'class/school',callback);
     }
 
     // getUnMappedUser(id,callback){

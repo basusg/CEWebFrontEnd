@@ -25,4 +25,4 @@ import { ListStudentComponent } from './components/view/list-student.component';
         // ViewUserComponent
     ]
 })
-export class ClassModule { }
+export class StudentModule { }

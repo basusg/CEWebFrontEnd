@@ -12,14 +12,17 @@
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Class Name{{view}}</th>
-                            <th>Staff</th>
+                                <th>Student</th>
+                                <th>Parent</th>
+                                <th>Class</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         <tr (click)="openClasses(item.id)" *ngFor="let item of tableData | paginate: { id: 'pager', itemsPerPage: pageSize, currentPage: pageNumber};let index = index">
-                            <td>{{item.name}}</td>
-                            <td>{{item.user.member.firstName}}</td>
+                            <td>{{item.lastName}},{{item.firstName}}</td>
+                            <td>{{item.parent.lastName}},{{item.parent.firstName}}</td>
+                            <td>{{item.classes.name}}</td>
                            
                         </tr>
                     </tbody>
@@ -53,37 +56,60 @@
                 <div class="row card card-block">
                     <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-group">
                        
-                        <card cardTitle="Class">
+                        <card cardTitle="Student">
                                 <div class="col-md-6 form-group">
-                                    <label class="control-label">Class Name</label>
-                                    <input type="text" class="form-control" formControlName="name" placeholder="Class Name" >
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" class="form-control" formControlName="firstName" placeholder="First Name" >
                                 </div>
                                 <div  class="col-md-6 form-group">
-                                    <label class="control-label">Description</label>
-                                    <input type="text" class="form-control" formControlName="description" placeholder="Class description">
+                                        <label class="control-label">Middle Name</label>
+                                        <input type="text" class="form-control" formControlName="middleName" placeholder="Middle Name" >
                                 </div>
-                                <div  *ngIf="isEditUser" class="col-md-12 form-group">
-                                    <label class="control-label">Staff</label>
-                                    <input type="text" class="form-control" formControlName="mappedUser" disabled placeholder="Seleted Staff">
+                                <div  class="col-md-6 form-group">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" formControlName="lastName" placeholder="Last Name" >
+                                </div>
+                                <div  *ngIf="isEditUser" class="col-md-6 form-group">
+                                    <label class="control-label">Class</label>
+                                    <input type="text" class="form-control" formControlName="classesName" disabled placeholder="Class">
                                 </div>
                             
                                 <div class="form-group col-md-12">
-                              <label class="control-label">Select Staff</label>
-                              <select name="staff" id="staff" formControlName="user" class="form-control">
-                                    <option *ngFor="let user of unMappedUsers" [value]="user.email">{{user.member.lastName}}, {{user.member.firstName}}</option>
+                              <label class="control-label">Select Class</label>
+                              <select name="classes" id="classes" formControlName="classesId" class="form-control">
+                                    <option *ngFor="let class of classData" [value]="class.id">{{class.name}}</option>
                               </select>
                             </div>
                             
+                          </card>
+
+                          <card cardTitle="Parent">
+                                <div class="col-md-6 form-group">
+                                        <label class="control-label">Email</label>
+                                        <input type="text" class="form-control" formControlName="parentEmail" placeholder="Email">
+                                    </div>
+                                <div class="col-md-6 form-group">
+                                    <label class="control-label">First Name</label>
+                                    <input type="text" class="form-control" formControlName="parentFirstName" placeholder="First Name" >
+                                </div>
+                                <div  class="col-md-6 form-group">
+                                        <label class="control-label">Middle Name</label>
+                                        <input type="text" class="form-control" formControlName="parentMiddleName" placeholder="Middle Name" >
+                                </div>
+                                <div  class="col-md-6 form-group">
+                                        <label class="control-label">Last Name</label>
+                                        <input type="text" class="form-control" formControlName="parentLastName" placeholder="Last Name" >
+                                </div>
                           </card>
                         <div class="col-md-12">
                             <!--<div *ngIf="!isEditUser" class="col-md-4">
                             <button class="btn btn-primary" (click)="isEditUser=true">Edit Profile</button>
                         </div>-->
                             <div *ngIf="isEditUser||isAddUser" class="col-md-4">
-                                <button type="submit" class="btn btn-primary">Update Profile</button>
+                                <button type="submit" class="btn btn-primary">Update Student</button>
                             </div>
                             <div *ngIf="isEditUser" class="col-md-4">
-                                <button type="button" class="btn btn-primary" (click)="deleteUser()">Delete Profile</button>
+                                <button type="button" class="btn btn-primary" (click)="deleteUser(form.value.id)">Delete Student</button>
                             </div>
                             <div class="col-md-4">
                                 <button class="btn btn-primary" (click)="isListUser=true;">Cancel</button>

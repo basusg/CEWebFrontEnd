@@ -15,6 +15,7 @@ export const childRoutes: Routes = [
             { path: 'index', loadChildren: './index/index.module#IndexModule' },
             { path: 'employee', loadChildren: './employee/employee.module#EmployeeModule' },
             { path: 'class', loadChildren: './classes/classes.module#ClassModule' },
+            { path: 'student', loadChildren: './student/student.module#StudentModule' },
             //{ path: 'icon', loadChildren: './icon/icon.module#IconModule' },
             //{ path: 'profile', loadChildren: './profile/profile.module#ProfileModule' },
             //{ path: 'form', loadChildren: './form/form.module#FormModule' },
