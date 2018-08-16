@@ -20,6 +20,16 @@ export let MENU_ITEM = [
         icon: 'user'
     },
     {
+        path: 'editor',
+        title: 'Editor',
+        icon: 'editor'
+    },
+    {
+        path: 'story',
+        title: 'Story',
+        icon: 'pencil'
+    },
+    {
         path: 'profile',
         title: 'User Profile',
         icon: 'user'

@@ -16,7 +16,7 @@
 }
 
 .side-collapsed {
-    width: 0;
+    width: 0 !important;
     /* .avatar-wrap {
         padding: 15px 4px;
         border-bottom: 1px solid transparent;
@@ -43,6 +43,6 @@
 
 @media (max-width:970px) {
     .pages-sider {
-        width: 0;
+        width: 210px;
     }
 }

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { GlobalService } from '../../services/global.service';
 
 @Component({
@@ -15,7 +16,13 @@ export class PagesTopComponent {
   sidebarToggle: boolean = true;
   tip = { ring: true, email: true };
 
-  constructor(private _globalService: GlobalService) { }
+  constructor(private _globalService: GlobalService,private router: Router) { }
+
+  public logout(){
+    console.log("logout");
+    localStorage.removeItem('MyApp_Auth');
+    this.router.navigate(['/login']);
+  }
 
   public _sidebarToggle() {
     /* this._globalService.sidebarToggle$.subscribe(sidebarToggle => {

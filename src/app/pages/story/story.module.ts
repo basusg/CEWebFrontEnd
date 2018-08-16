@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { routing } from './editor.routing';
-import { SharedModule } from '../../shared/shared.module';
-import { EditorComponent } from './editor.component';
+import { routing } from './story.routing';
+//import { SharedModule } from '../../shared/shared.module';
+import { StoryComponent } from './story.component';
+// import { StoryComponent } from './story.component;
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        SharedModule,
+        //SharedModule,
         routing
     ],
     declarations: [
-        EditorComponent
+        StoryComponent
     ]
 })
-export class EditorModule { }
+export class StoryModule { }

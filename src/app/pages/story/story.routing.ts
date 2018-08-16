@@ -1,10 +1,11 @@
 import { Routes, RouterModule } from '@angular/router';
-import { EditorComponent } from './editor.component';
+// import { StoryComponent } from './story.component;
+import { StoryComponent } from './story.component';
 
 const childRoutes: Routes = [
     {
         path: '',
-        component: EditorComponent
+        component: StoryComponent
     }
 ];
 
