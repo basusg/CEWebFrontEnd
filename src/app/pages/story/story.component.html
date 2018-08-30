@@ -1,10 +1,123 @@
-<card cardTitle="pell editor">
-  <div class="row">
-    <div class="col-md-6">
-      <pell-editor [defaultContent]="defaultContent" (content)="onContentChange($event)"></pell-editor>
+<card cardTitle="Story Create"  isCollapse='true' (action)="onActionPerform($event)" isAdd='true' isCancel='true' isPublish='true'>
+  <div id="viewUser" class="row">
+    <div class="col-md-12">
+            <form >
+              <card class="col-md-8">
+                  <label class="col-md-12 control-label">Title</label>
+                  <div id="pellTitle" scrol="no" class="editor story-title">
+                      <div class="editor-actionbar">
+                        <button class="editor-button" title="Bold" (click)="changeStyle('bold')"><b>B</b></button>
+                        <button class="editor-button editor-button-selected" title="Italic" (click)="changeStyle('italic')"><i>I</i></button>
+                        <button class="editor-button" title="Underline" (click)="changeStyle('underline')"><u>U</u></button>
+                        <!--<button class="editor-button" title="Strike-through"><strike>S</strike></button>-->
+                        <!--<button class="editor-button" title="Heading 1" (click)="changeStyleWValue('formatBlock','h1')"><b>H<sub>1</sub></b></button>
+                        <button class="editor-button" title="Heading 2" (click)="changeStyleWValue('formatBlock','h2')"><b>H<sub>2</sub></b></button>
+                        <button class="editor-button" title="Paragraph" (click)="changeStyleWValue('formatBlock','p')">¶</button>
+                        <button class="editor-button" title="Quote" (click)="changeStyleWValue('formatBlock','blockquote')">“ ”</button>
+                        <button class="editor-button" title="Ordered List" (click)="changeStyle('insertOrderedList')">#</button>
+                        <button class="editor-button" title="Unordered List" (click)="changeStyle('insertUnorderedList')">•</button>
+                        <button class="editor-button" title="Code" (click)="changeStyleWValue('formatBlock','pre')">&lt;/&gt;</button>
+                        <button class="editor-button" title="Horizontal Line" (click)="changeStyle('insertHorizontalRule')">―</button>
+                        <button class="editor-button" title="Link" (click)="changeStyle('link')">🔗</button>
+                        <button class="editor-button" title="Image" (click)="changeStyle('image')">📷</button>-->
+                      </div>
+                      <div contenteditable="true" class="editor-title-content" id="contentTitle">
+                        {{contentTitle}}
+                      </div>
+                  </div>
+                 
+                  <label class="col-md-12 control-label">Content</label>
+                  <div id="pellBody" class="editor story-body">
+                      <div class="editor-actionbar">
+                          <button class="editor-button" title="Bold" (click)="changeStyle('bold')"><b>B</b></button>
+                          <button class="editor-button editor-button-selected" title="Italic" (click)="changeStyle('italic')"><i>I</i></button>
+                          <button class="editor-button" title="Underline" (click)="changeStyle('underline')"><u>U</u></button>
+                          <!--<button class="editor-button" title="Strike-through"><strike>S</strike></button>-->
+                          <button class="editor-button" title="Heading 1" (click)="changeStyleWValue('formatBlock','h1')"><b>H<sub>1</sub></b></button>
+                          <button class="editor-button" title="Heading 2" (click)="changeStyleWValue('formatBlock','h2')"><b>H<sub>2</sub></b></button>
+                          <button class="editor-button" title="Paragraph" (click)="changeStyleWValue('formatBlock','p')">¶</button>
+                          <button class="editor-button" title="Quote" (click)="changeStyleWValue('formatBlock','blockquote')">“ ”</button>
+                          <button class="editor-button" title="Ordered List" (click)="changeStyle('insertOrderedList')">#</button>
+                          <button class="editor-button" title="Unordered List" (click)="changeStyle('insertUnorderedList')">•</button>
+                          <button class="editor-button" title="Code" (click)="changeStyleWValue('formatBlock','pre')">&lt;/&gt;</button>
+                          <button class="editor-button" title="Horizontal Line" (click)="changeStyle('insertHorizontalRule')">―</button>
+                          <button class="editor-button" title="Link" (click)="changeStyle('link')">🔗</button>
+                          <button class="editor-button" title="Image" (click)="openModal(fileUpload)">📷</button>
+                        </div>
+                        <div contenteditable="true" class="editor-body-content" id="contentBody">
+                          {{contentBody}}
+                        </div>
+                  </div>
+              </card>
+              <card class="col-md-4">
+                  <div class="row" style="height: 200px">
+                      <h3 class="col-md-12">Children to the Story</h3>
+                      <div class="col-md-12">
+                        <ng-select [multiple]="true" [items]="childrenItems" [disabled]="disabled" (data)="refreshValue($event)" (selected)="selected($event)"
+                          (removed)="removed($event)" placeholder="No city selected"></ng-select>
+                      </div>
+                      <div class="col-md-12">
+                        <pre *ngFor="let item of value">{{item.text}}</pre>
+                      </div>
+                    </div>
+              </card>
+
+              <card class="col-md-4">
+                  <div class="row" style="height: 200px">
+                      <h3 class="col-md-12">Learning tag</h3>
+                     
+                      <div class="col-md-12">
+                        <ng-select class="col-md-10" (typed)="tagTyped($event)" [multiple]="true" [items]="learningItems" [disabled]="disabledL" (data)="refreshValueL($event)" (selected)="selectedL($event)"
+                          (removed)="removedL($event)" placeholder="No city selected"></ng-select>
+                          <button class="btn btn-icon btn-default col-md-2" (click)="addNewLearningTag()">
+                            <i class="fa fa-plus fa-fw"></i>
+                          </button>
+                      </div>
+                      <div class="col-md-12">
+                        <pre *ngFor="let item of valueL">{{item.text}}</pre>
+                      </div>
+                    </div>
+              </card>
+            </form>
+
+            
+        
     </div>
-    <div class="col-md-6">
-      <div id="text-output"></div>
-    </div>
-  </div>
+</div>
 </card>
+
+<!-- File Upload Modal -->
+<modal #fileUpload [closeOnEscape]="false" [closeOnOutsideClick]="false">
+  <!--<modal-header>
+    <h3>Upload files</h3>
+  </modal-header>-->
+  <modal-content>
+      <div class="col-md-12">
+          <h3>Select files</h3>
+          <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader"
+            class="well my-drop-zone">
+            Base drop zone
+          </div>
+        </div>
+        <div class="col-md-12">
+            <div>
+              <div>
+                File progress: <strong>{{ uploader.queue[0]?.file?.name }}</strong>
+                <progress-bar [percent]="uploader.progress" theme="success"></progress-bar>
+              </div>
+              <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span> Upload
+              </button>
+              <!--<button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+              </button>-->
+              <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                <span class="glyphicon glyphicon-trash"></span> Clear
+              </button>
+            </div>
+          </div>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="closeModal(fileUpload)">close</button>
+  </modal-footer>
+</modal>

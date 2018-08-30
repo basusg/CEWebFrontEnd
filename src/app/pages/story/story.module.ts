@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { routing } from './story.routing';
-//import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { StoryComponent } from './story.component';
+import { SelectModule } from 'ng2-select';
+import { ModalModule } from 'ngx-modal';
+import { FileUploadModule } from 'ng2-file-upload';
 // import { StoryComponent } from './story.component;
 
 @NgModule({
@@ -11,8 +14,11 @@ import { StoryComponent } from './story.component';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        //SharedModule,
-        routing
+        SharedModule,
+        routing,
+        SelectModule,
+        ModalModule,
+        FileUploadModule
     ],
     declarations: [
         StoryComponent

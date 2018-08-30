@@ -4,7 +4,9 @@
     height: 40px;
     padding: 0 10px;
     display: flex;
-    justify-content: space-between; //border-bottom: 1px solid $border-color;
+    justify-content: space-between; 
+    background: $card-border;
+    border-bottom: 1px solid $border-color;
     .card-title {
         display: inline-block;
         margin: 0;
@@ -12,6 +14,19 @@
         font-size: $default-text+1;
         font-weight: 700;
         text-transform: uppercase;
+    }
+}
+
+.action-items{
+    margin: 5px;
+    button{
+        background: transparent;
+        color:$black;
+        // padding-right: 5px;
+    }
+    .btn-default:hover{
+        background: linear-gradient(to top right, darken($card-bg, 40%), darken($card-bg, 30%));
+        color:$white;
     }
 }
 
