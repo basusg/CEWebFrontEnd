@@ -1,0 +1,40 @@
+<card cardTitle="Story Create"  isCollapse='true' (action)="onActionPerform($event)" isAdd='true' isCancel='true' isPublish='true'>
+  <div id="viewUser" class="row">
+    <div class="col-md-8">
+            
+      <div class="col-md-12">
+          <!--<label class="col-md-12 control-label">Title</label>-->
+          <div id="pellTitle" scrol="no" class="story-title">
+              
+          </div>
+        
+          <!--<label class="col-md-12 control-label">Content</label>-->
+          <div id="pellBody" class="story-body">
+              
+          </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <card class="col-md-12">
+            <div class="row" style="height: 200px">
+                <h3 class="col-md-12">Children to the Story</h3>
+                
+                <div class="col-md-12">
+                  <pre *ngFor="let item of studentList">{{item.lastName}}, {{item.firstName}}</pre>
+                </div>
+              </div>
+        </card>
+
+        <card class="col-md-12">
+            <div class="row" style="height: 200px">
+                <h3 class="col-md-12">Learning tag</h3>
+                
+                <div class="col-md-12">
+                  <pre *ngFor="let item of tagList">{{item.tag}}</pre>
+                </div>
+              </div>
+        </card>
+      
+  </div>
+  </div>
+</card>

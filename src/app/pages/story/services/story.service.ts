@@ -16,9 +16,9 @@ export class StoryService {
     getAllEmployee (id,callback){
         console.log("getAllEmployee");
         if(id){
-            this.restCallService.getRest(id,null,'member',callback);
+            this.restCallService.getRest(id,null,'story',callback);
         }else{
-            this.restCallService.getRest(null,null,'member',callback);
+            this.restCallService.getRest(null,null,'story',callback);
         }
     }
 
@@ -66,10 +66,10 @@ export class StoryService {
     }
     putStory(data,callback){
          console.log("putEmployee");
-        this.restCallService.putRest('member/update',data,callback);
+        this.restCallService.putRest('story/update',data,callback);
     }
     deleteStory(id,callback){
-        this.restCallService.deleteRest(id,'member',callback);
+        this.restCallService.deleteRest(id,'story',callback);
     }
     //User Role
     // getRole (callback){

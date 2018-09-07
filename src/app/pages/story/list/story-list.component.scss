@@ -1,0 +1,108 @@
+$pell-actionbar-color: #FFF !default;
+$pell-border-color: rgba(10, 10, 10, 0.1) !default;
+$pell-border-style: solid !default;
+$pell-border-width: 1px !default;
+$pell-button-height: 30px !default;
+$pell-button-selected-color: #F0F0F0 !default;
+$pell-button-width: 30px !default;
+$pell-content-height: 300px !default;
+$pell-content-padding: 10px !default;
+
+.modal-backdrop.in{
+  display: none;
+}
+
+embed{
+  width:100%;
+  height:100%;
+  image{
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.editor {
+  border: $pell-border-width $pell-border-style $pell-border-color;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.editor-title {
+    border: $pell-border-width $pell-border-style $pell-border-color;
+    box-sizing: border-box;
+    overflow: hidden;
+    height:100px !important;
+  }
+
+.editor-body-content {
+  box-sizing: border-box;
+  height: $pell-content-height;
+  outline: 0;
+  overflow-y: auto;
+  padding: $pell-content-padding;
+  // overflow-y: hidden !important;
+  margin-top: 30px;
+}
+
+.editor-title-content {
+    box-sizing: border-box;
+    height: $pell-content-height;
+    outline: 0;
+    overflow-y: auto;
+    padding: $pell-content-padding;
+    
+    
+    height: 40px;
+    margin-top: 30px;
+  }
+
+
+.editor-actionbar {
+  background-color: $pell-actionbar-color;
+  border-bottom: $pell-border-width $pell-border-style $pell-border-color;
+  position: absolute;
+}
+
+.editor-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  height: $pell-button-height;
+  outline: 0;
+  width: $pell-button-width;
+  vertical-align: bottom;
+}
+
+.editor-button-selected {
+  background-color: $pell-button-selected-color;
+}
+
+/* Scroll Bar */
+// .scroll {
+  // width: 200px;
+  // height: 400px;
+  //  background: red;
+  // overflow: scroll;
+// }
+.scroll::-webkit-scrollbar {
+   width: 12px;
+}
+
+.scroll::-webkit-scrollbar-track {
+   box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+   border-radius: 10px;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+   border-radius: 10px;
+   box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+
+//File upload
+.my-drop-zone {
+  border: dotted 3px lightgray;
+}
+
+.nv-file-over {
+  border: dotted 3px red;
+}

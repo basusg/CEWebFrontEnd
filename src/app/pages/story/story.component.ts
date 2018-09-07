@@ -19,6 +19,7 @@ export class StoryComponent implements OnInit {
 
   
   loggedUser;
+  taggedSnaps=[];
   contentBody = "Please enter text content here...";
   contentTitle = "Story Title...";
   private authHeader:any[] = new Array() ;
@@ -36,7 +37,9 @@ var headerJson = JSON.parse(this.header);
       if(userLocal){
         var user = JSON.parse(userLocal);
         this.loggedUser = user;
-        URL+= "/"+user.id;
+        if(URL.indexOf("/"+user.id)<10 || URL.indexOf("/"+user.id) <0 -1){
+          URL+= "/"+user.id;
+        }
       }
       console.log(user,authKey);
       this.uploader = new FileUploader({
@@ -65,7 +68,7 @@ var headerJson = JSON.parse(this.header);
               obj.exec('insertHtml','<embed width="75%" height="75%" style="margin-left:auto;margin-right:auto" src="http://localhost:8080/snap/file/'+jsonRes.id+'" width="800px" height="2100px" />');
               // content = '<img src="http://localhost:8080/snap/file/'+jsonRes.id+'" alt="Smiley face">'
             }
-            
+            obj.taggedSnaps.push(jsonRes.id);
           }else{
             alert("File upload failed")
           }
@@ -139,6 +142,7 @@ var headerJson = JSON.parse(this.header);
     console.log(this.contentTitle);
     console.log(this.contentBody);
     console.log(this.value);
+    console.log(this.taggedSnaps);
     var snaps = [];
     this.value.forEach(element => {
       // console.log(element.id);
@@ -154,7 +158,8 @@ var headerJson = JSON.parse(this.header);
 
     console.log(document.getElementById('contentBody'));
     console.log(document.getElementById('contentBody').innerHTML);
-    this.contentTitle = document.getElementById('contentTitle').innerHTML;
+    this.contentTitle = "<h1 style='font-style: normal;font-weight: 400;text-align: left;'>"+
+    document.getElementById('contentTitle').innerHTML+"</h1>";
     this.contentBody = document.getElementById('contentBody').innerHTML
     if(this.value.length<1 && this.valueL.length<1){
       alert("Please tag children or Learning tags in to the story")
@@ -169,7 +174,8 @@ var headerJson = JSON.parse(this.header);
       status:'DRAFT',
       type:'STORY',
       taggedStudent:snaps,
-      associatedTags:learnTag
+      associatedTags:learnTag,
+      taggedSnaps:this.taggedSnaps
     }
 
     console.log(story);
