@@ -1,11 +1,20 @@
 <div class="card animated fadeIn">
   <div class="card-header" *ngIf="cardTitle">
     <h4 class="card-title">{{cardTitle}}</h4>
-    <div class="btn-group" *ngIf="cardTitle&&isCollapse">
-      <button class="collapse-btn" (click)="collapseCard()">
+    <div class="btn-group action-items" *ngIf="cardTitle&&isCollapse">
+        <button class="btn btn-default" *ngIf='isAdd' (click)="actionItem('add')">
+            <i class="fa fa-edit fa-fw"></i>Add</button>
+            <button class="btn btn-default" *ngIf='isPublish' (click)="actionItem('publish')">
+                <i class="fa fa-edit fa-fw"></i>Publish</button>
+        <button class="btn btn-default" *ngIf='isDelete' (click)="actionItem('delete')">
+            <i class="fa fa-minus fa-fw"></i>Delete</button>
+        <button class="btn btn-default" *ngIf='isCancel' (click)="actionItem('cancel')">
+            <i class="fa fa-close fa-fw"></i>Cancel</button>
+        
+      <!--<button class="collapse-btn" (click)="collapseCard()">
         <i class="fa fa-minus fa-fw" [ngClass]="{'collapse-on':collapse === 'on','collapse-off':collapse === 'off'}"></i>
         <i class="fa fa-plus fa-fw" [ngClass]="{'collapse-on':collapse === 'off','collapse-off':collapse === 'on'}"></i>
-      </button>
+      </button>-->
     </div>
   </div>
   <div class="content-wrap" [@collapse]="collapse">

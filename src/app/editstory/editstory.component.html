@@ -1,0 +1,394 @@
+
+      <app-eheader></app-eheader>
+      <!-------------------------------All Content start-------------------------------------------------->
+      <div class="row">
+        <!-------------------------------Left Side content start---------------------------> 
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xs-12" id="left">
+          <div class="row">
+              <div class="col-sm-12 contentleft">
+                <div class="row">
+                  <div class="col-sm-12 box_show">
+                    <!--------------------Default date picker start--------------------------------->
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <span class="dte_pic">
+                          <input type="text" [(ngModel)]="event" bsDatepicker [bsConfig]="datepickerConfig" style="border:none;"/>
+                        </span>
+                      </div>
+                    </div> 
+                    <!--------------------Default date picker end--------------------------------->
+
+                    <!--------------------Default Title start--------------------------------->
+                    <div class="row">
+                      <div class="col-sm-12" style="padding:5px 12%;">
+                          <!-- <input type="text" placeholder="Title(Optional)" value="{{default_text}}" (click)="openDefaultTextField()" readonly style="height:50px;font-size:22px;font-weight:bold;border:none;padding-left:0;"> -->
+                          <div *ngIf="default_text!=''"><span (click)="openDefaultTextField()" style="height:50px;font-size:22px;font-weight:bold;border:none;padding-left:0;" [innerHtml]="default_text"></span></div>
+                          <div *ngIf="!default_text"><span (click)="openDefaultTextField()" style="height:50px;font-size:22px;font-weight:bold;border:none;padding-left:0;">Title(Optional)</span></div>
+                          <div class="txt_area" style="display:none;" id="default_textfield_div">
+                              <textarea class="text_area_plugin" id="default_text_area" aria-hidden="true"></textarea>
+                              <div style="float:right"><button class="cus_btn" (click)="cancelDefaultText()" style="float:left">Cancel</button><button (click)="saveDefaultText()" class="cus_btn" style="float:left">Done</button></div>
+                          </div>
+                      </div>
+                    </div>
+                    <!--------------------Default Title end--------------------------------->
+                      
+                    <!------------------------------Displaying Multiple items start------------------------------------------------>
+
+                    <div  id="multiple_elements" *ngFor="let type_items of multiple_items;let x=index">
+                      <!--------------------Mutiple Panel button start--------------------------------->
+                      <div class="row" >
+                          <div class="col-sm-12" style="padding:15px 5%">
+                            <div class="box2 sb12" (click)="addPanel(x);" id="{{x}}">+</div>
+                            <!-- <div><button (click)="addPanel(x);" >click</button></div> -->
+                            <div class="text_controler" id="panel_{{x}}" style="display:none;">
+                                <ul class="edt_clr">
+                                  <li (click)="editText(x)" title="Add text"><i class="fa fa-pencil" aria-hidden="true"></i><br><br>Text</li>
+                                  <li (click)="uploadImage(x)" title="Add images"><i class="fa fa-camera" aria-hidden="true"></i><br><br>Camera</li>
+                                  <li (click)="uploadVideo(x)" title="Add video"><i class="fa fa-video-camera" aria-hidden="true"></i><br><br>Video</li>
+                                  <li (click)="uploadPdf(x)" title="Add pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i><br><br>PDF</li>    
+                                </ul>
+                            </div>
+                          </div>
+                      </div>
+                      <!--------------------Mutiple Panel button end--------------------------------->
+
+                      <!--------------------Mutiple panels list start--------------------------------->
+                      <div class="row">
+                        <div class="col-sm-12" style="padding:0 12%">
+                          <!--------------------Multiple Panel text content start-------------------->
+                            <div class="row">
+                              <div class="col-sm-12">
+                                  <div [style.display]="(type_items.type == 'text_file' ? 'block' : 'none')">
+                                    <div class="text_et" id="textfield_{{x}}_showtext_div" *ngIf="type_items.text_data!=''">
+                                        <div id="textfield_{{x}}_showtext_append" [innerHtml]="type_items.text_data"></div>
+                                        <span style="position:absolute;top:0;right:14px;"><span class="edt_cls" (click)="editText(x,'edit')">Edit</span><span class="edt_cls" (click)="openDeleteConfirmationPopup(x)"><i class="fa fa-close"></i></span></span>
+                                    </div>
+                                  </div>
+                                  <div class="txt_area" id="textfield_{{x}}" style="display:none;">
+                                    <textarea class="text_area_plugin" id="text_area_element_{{x}}" aria-hidden="true"></textarea>
+                                    <div style="float:right;"><button class="cus_btn" style="float:left" (click)="cancelOpenTextEditor(x)" >Cancel</button><button id="button_save_text_{{x}}" class="cus_btn" style="float:left">Done</button></div>
+                                    <span id="text_area_element_{{x}}_error" style="color:red"></span>
+                                  </div>
+                              </div>
+                            </div>
+                          <!--------------------Multiple Panel text content end-------------------->
+
+                          <!--------------------Multiple Panel Image content start-------------------->
+                            <div class="row" [style.display]="(type_items.type == 'image_file') ? 'block' : 'none' ">
+                              <div class="col-sm-12 ed_margin">
+                                  <div class="photo1"  id="image_div_{{x}}">
+                                      <span style="cursor:pointer" (click)="openDeleteConfirmationPopup(x)"><img class="upper_right"  src="assets/images/ico_close_neg_shadow.png" /></span>
+                                      <img class="img-responsive" style="height:300px; margin: 0 auto;"  id="image_{{x}}_src" src="{{type_items.image_src}}"/>
+                                  </div>
+                              </div>
+                            </div>
+                          <!--------------------Multiple Panel Image content end-------------------->
+
+                          <!--------------------Multiple Panel Video content start-------------------->
+                            <div class="row" [style.display]="(type_items.type == 'video_file') ? 'block' : 'none' " id="video_div_{{x}}">
+                              <div class="col-sm-12 ed_margin">
+                                  <div class="photo1">
+                                      <span style="cursor:pointer" (click)="openDeleteConfirmationPopup(x)"><img class="upper_right"  src="assets/images/ico_close_neg_shadow.png" /></span>
+                                      <video class="img-responsive" style="height:300px; margin: 0 auto;"  controls>
+                                        <source src="{{type_items.video_src}}" type="video/mp4" >
+                                      </video>
+                                  </div>
+                              </div>
+                            </div>
+                          <!--------------------Multiple Panel Video content end-------------------->
+
+                          <!--------------------Multiple Panel PDF content start-------------------->
+                            <div class="row" [style.display]="(type_items.type == 'pdf_file') ? 'block' : 'none' " id="pdf_display_{{x}}_div">
+                              <div class="col-sm-12">
+                              <span style="cursor:pointer" id="pdf_close_icon_{{x}}" (click)="openDeleteConfirmationPopup(x)"><img  class="upper_right_pdf" id="pdf_close_icon_img_{{x}}" src="assets/images/ico_close_neg_shadow.png" /></span>
+                                <div class="pdf_loader" id="pdf_loader_{{x}}">Loading document ...</div>
+                                <div class="pdf_contents" id="pdf_contents_{{x}}">
+                                  <div class="pdf_meta" id="pdf_meta_{{x}}">
+                                     <div class="pdf_buttons" id="pdf_buttons_{{x}}">
+                                      <button (click)="previousPage(x)" class="pdf_prev" id="pdf_prev_{{x}}">Back</button>
+                                      <button (click)="nextPage(x)" class="pdf_next" id="pdf_next_{{x}}">Next</button>
+                                    </div>
+                                    <div class="page_count_container" id="page_count_container_{{x}}">Page <span class="pdf_current_page" id="pdf_current_page_{{x}}"></span> of <span class="pdf_total_page" id="pdf_total_pages_{{x}}"></span></div>
+                                  </div>
+                                  <div class="row">
+                                  <div class="col-sm-12">
+                                    <canvas class="pdf_canvas" id="pdf_canvas_{{x}}" style="width: 100%;" height="917" width="649"></canvas>
+                                  </div>
+                                </div>
+                                <div class="page_loader" id="page_loader_{{x}}">Loading page ...</div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--------------------Multiple Panel PDF content end-------------------->
+                        </div>
+                      </div>
+                      <!--------------------Mutiple panels list end--------------------------------->
+                    </div>
+                    <!------------------------------Displaying Multiple itmes end------------------------------------------------>
+
+
+                    <!--------------------Starting Default Panel button start--------------------------------->
+                    <div class="row" >
+                       <div class="col-sm-12" style="padding:15px 5%">
+                          <div class="box2 sb12" (click)="addPanel('first');" id="first">+</div>
+                          
+                          <div class="text_controler" (clickOutside)="clickedOutside('first')" id="panel_first" style="display:none;">
+                              <ul class="edt_clr">
+                                <li (click)="editText('first')" title="Add text"><i class="fa fa-pencil" aria-hidden="true"></i><br><br>Text</li>
+                                <li (click)="uploadImage('first')" title="Add images"><i class="fa fa-camera" aria-hidden="true"></i><br><br>Camera</li>
+                                <li (click)="uploadVideo('first')" title="Add video"><i class="fa fa-video-camera" aria-hidden="true"></i><br><br>Video</li>
+                                <li (click)="uploadPdf('first')" title="Add pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i><br><br>PDF</li>    
+                              </ul>
+                          </div>
+                        </div>
+                    </div>
+                    <!-------------------- Starting Default Panel button end--------------------------------->
+
+                    <!--------------------Default Panel text content start-------------------->
+                    <div class="row">
+                      <div class="col-sm-12" style="padding:0 12%">
+                         <div class="row">
+                          <div class="col-sm-12 ed_margin">
+                              <div class="txt_area" id="textfield_first" style="display:none;">
+                                  <textarea class="text_area_plugin" id="text_area_element_first" aria-hidden="true"></textarea>
+                                  <div style="float:right;"><button class="cus_btn" style="float:left" (click)="cancelOpenTextEditor('first')">Cancel</button><button id="button_save_text_first" class="cus_btn" style="float:left">Done</button></div>
+                                  <span id="text_area_element_first_error" style="color:red"></span>
+                              </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--------------------Default Panel text content end-------------------->
+
+                    <!-----------------------------Page Required content start------------------------------>
+                    <input type="file" style="display:none;" id="main_file" accept=".jpg,.png,.jpeg" />
+                    <div id="pdf_display"></div>
+                    <!-------------------------------Page Required content start--------------------------->
+                    <br><br>
+                  </div>
+                </div>
+              </div>
+          </div> 
+        </div>
+        <!-------------------------------Left Side content end---------------------------> 
+
+        <!-------------------------------Right Side content start---------------------------> 
+        <div class="col-sm-4 col-md-4 col-lg-4 col-xs-12 pddr" id="right" style="background: #f1f5f9;">
+          <!-------------------------------User son profile Photo start------------------------------------------------->
+          <div class="stry_prf" id="textbox" style="cursor:pointer;">
+            <span><img class="user_image" src="assets/images/avatar.png"/>
+              <!-- <div class="user_image_letter">SG</div> -->
+            </span>
+            <span style="padding-top:10px;" data-toggle="modal" data-target="#myModal" >&#x25BC;</span>
+          </div>
+          <br>
+          <!-------------------------------User son profile Photo end------------------------------------------------->
+
+          <!-------------------------------Learning activities content start------------------------------------------------->
+          <div class="col-sm-12">
+            <!-------------------------------Create Learning tag start------------------------------------------------->
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="lrn_notes" id="textbox">
+                  <span style="font-size:18px;">Learning tags</span>
+                  <span (click)="openCreateLearningTagPopup()" style="color:#fe9200;cursor:pointer;">New tag</span>
+                </div>
+              </div>
+            </div>
+            <!-------------------------------Create Learning tag end--------------------------------------------------->
+
+            <!-------------------------------Learning Tags display start------------------------------------------------->
+            <div class="row" style="border-bottom:1px solid #ccc;padding-bottom:20px;margin-bottom: 10px;">
+              <div class="col-sm-12" *ngIf="!check_selected">
+                <div class="no_cnt">
+                  <h5>No learning tags selected for this story.</h5>
+                </div>
+              </div>
+              <br>
+              <div class="col-sm-12">
+                <ul class="sel_ler_tab" *ngFor="let tags of learning_tags;let x=index">
+                   <li *ngIf="tags.selected_learning_status">{{tags.learning_tag_name}}<img (click)="removeSelectedTagName(x)" style="width:20px;height:20px;" src="assets/images/ico_close_neg_shadow.png"></li>
+                 </ul>
+                 <br>
+             </div>
+            </div>
+            <!-------------------------------Learning Tags display end------------------------------------------------->
+            <!-- add childerns tags start -->
+            <div class="row" style="border-bottom:1px solid #ccc;padding-bottom:20px;">
+              <div class="col-sm-12">
+                 <div class="lrn_notes" id="textbox">
+                     <span style="font-size:18px;">Tagged Childrens</span>
+                     <span  style="color:#fe9200;cursor:pointer;" data-toggle="modal" data-target="#myModal2">
+                        Tag Childrens
+                     </span>
+                 </div>
+              </div>
+                <div class="col-sm-12">
+                   <ul class="ler_tab">
+                     <li>
+                        <span class="media-left" style="float:left;">
+                            <!-- <span class="media-object" style="width:30px;height:30px;background-color:#eee;color:#FE9200;border-radius: 100%;font-size:30px;text-align: center;padding-top: 30px;"></span> -->
+                            <img class="media-object" src="assets/images/avatar.png" style="width:30px;height:30px;border-radius: 100%;">
+                        </span>
+                        <span style="line-height: 30px;">basavakumar</span>
+                     </li>
+                   </ul>
+                </div>
+            </div>
+            <!-- add childerns tags end -->
+            <!-------------------------------Select and search Learning Tags start------------------------------------------------->
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="ser_lern">
+                  <span style="font-size:18px;">Select tags</span>
+                </div>
+                <br>
+                <select>
+                  <option>All learning tags</option>
+                  <option selected>Family</option>
+                </select>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <input type="text"  id="sp_lst_srch"  placeholder="Search"  value=""/>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-sm-12">
+                <ul class="ler_tab" *ngFor="let tags of learning_tags;let x=index">
+                  <li (click)="selectLearningTags(x)" title="{{tags.learning_tag_description}}" [ngClass] = "{'disabled_full': tags.selected_learning_status,'':!tags.selected_learning_status}" >{{tags.learning_tag_name}}<img (click)="removeCreatedLearningTag(x)" style="width:20px;height:20px;" src="assets/images/ico_close_neg_shadow.png"></li>
+                </ul>
+              </div>
+            </div>
+            <!-------------------------------Select and search Learning Tags start------------------------------------------------->
+
+            <br><br><br>
+          </div>
+          <!-------------------------------Learning activities content end------------------------------------------------->
+        </div>
+        <!-------------------------------Right Side content end--------------------------->
+
+      </div>
+      <!-------------------------------All Content End-------------------------------------------------->
+
+      <!-----------------------------------Delete Confirmation popup start------------------------------->
+      <div class="popup1" [id]="delete_multiple_items_popup_div" [style.display]="(delete_multiple_items_popup ? 'block' : 'none')">
+          <div class="container">
+              <div class="card">
+                 <div class="row">
+                   <div class="col-sm-12">
+                     <p style="font-size:16px;line-height:1.5;">Are you sure you want to remove this block?</p>
+                   </div>
+                 </div>
+                 <br>
+                <div class="row">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-5">
+                    <input type="button" class="input_submit background_white" value="No" (click)="closeDeletePopupElement()">
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="button" value="post" class="input_submit background_orange" value="Yes" (click)="deleteMultipleItems(delete_index_value)">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        
+      <!-----------------------------------Delete Confirmation popup end------------------------------->
+
+      <!------------------------------Learning tag create popup start------------------------------------------>
+      <div class="popup1" id="create_learning_tag_popup_div" style="display:none;">
+        <div class="container">
+            <div class="card1">
+              <div class="row">
+                <div class="col-sm-12">
+                  <h3>New tag</h3>  
+                </div>
+              </div>
+              <br>
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-sm-4 int">
+                  Name
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" id="learning_tag_name" value="">
+                  <span id="learning_tag_name_error" style="color:red"></span>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                <div class="col-sm-4 int">
+                  Descrition(Optional)
+                </div>
+                <div class="col-sm-8">
+                  <textarea id="learning_tag_description"></textarea>
+                  <span id="learning_tag_description_error" style="color:red"></span>
+                </div>
+              </div>
+              <div class="row" style="margin-bottom:20px;">
+                  <div class="col-sm-12">
+                    <span id="duplicate_learning_tag_error" style="color:red"></span>
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-3">
+                  <input type="button" class="input_submit background_white" value="Close" (click)="closeCreateLearningTagPopup()">
+                </div>
+                <div class="col-sm-3">
+                  <input type="button" class="input_submit background_orange" value="Save" (click)="saveLearningTags()">
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <!------------------------------Learning tag create popup start------------------------------------------>
+
+      <!-- childerns show -->
+      <div class="modal right fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div id="textbox">
+                <span data-dismiss="modal" style="color:blue;cursor:pointer;" title="close"><i class="fa fa-hand-o-right fa-2x" aria-hidden="true"></i></span>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" title="Tag childerns">SAVE</button>
+              </div>
+            </div>
+            <div style="overflow-y: auto;height:100%;">
+            <div class="child_list" style="padding: 10px 10px;border-bottom:1px solid #ccc;cursor:pointer;">
+                <table style="width:100%">
+                  <tr style="width:100%">
+                    <th style="width:50px;"><label style="padding-top:10px;"><input type="checkbox" class="check-fv"><span></span></label></th>
+                    <td style="width:50px;"><img  src="assets/images/avatar.png" style="width:35px;height:35px;border-radius: 100%;"></td>
+                    <td><span style="font-size: 14px;">Jane smith Jane</span></td>
+                  </tr>
+                </table>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <!-- childerns show end-->
+
+
+
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>This is a small modal.</p>
+        
+        <input type="text">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
