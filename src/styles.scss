@@ -1,0 +1,240 @@
+body, html {
+    margin: 0;
+    height:100%;
+    background: #ffffff;
+    font-family: 'Source Sans Pro';
+  }
+  
+#textbox {
+    display: flex;
+    justify-content: space-between;
+}
+.panel{
+    width:100px;
+    height:100px;
+    background:url(assets/images/ff.jpg) no-repeat center center;
+    float:left;
+    margin-left:10px;
+    margin-bottom: 10px;
+    background-color: #ccc;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    cursor: pointer;
+}
+.close{
+    display:block;
+    float:right;
+    width:30px;
+    height:29px;
+    background:url(assets/images/ico_close_neg_shadow.png) no-repeat center center;
+    z-index: 99999;
+}
+select{
+    width: 100%;
+    font-size: 1em;
+    border: solid 1px #cccccc;
+    border-radius: 4px;
+    background: #FFFFFF;
+    height: 40px;
+    padding: 3px;
+    color: #495C69;
+    padding-left: 10px;
+}
+select:focus{
+    font-style:normal;
+    border:1px solid #FE9200;
+    background:#FFF;
+    padding-left:10px;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+.background_orange{
+    border: 1px solid #0e4d92;
+    background: #0e4d92;
+    color: #FFF;
+    text-transform: uppercase;
+}
+.background_white{
+    border: 1px solid #0e4d92;
+    color: #0e4d92;
+    background:#FFF;
+    text-transform: uppercase;
+}
+.input_submit{
+    cursor:pointer;
+    width:100%;
+    border-radius: 4px;
+    height:40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom:10px;
+}
+@media (min-width: 1400px)  {
+    .dashboard{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .dashboard-preview{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .pr_t{
+        position: fixed;
+    }
+    .contentleft{
+        padding: 8% 8%;
+    }
+    .pddr{
+        padding: 0;
+    }
+}
+@media (min-width: 1300px) and (max-width: 1399px) {
+    .dashboard{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .dashboard-preview{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .pr_t{
+        position: fixed;
+    }
+    .contentleft{
+        padding: 8% 15%;
+    }
+    .pddr{
+        padding: 0;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1299px) {
+    .dashboard{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .dashboard-preview{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .pr_t{
+        position: fixed;
+    }
+    .contentleft{
+        padding: 8% 15%;
+    }
+    .pddr{
+        padding: 0;
+    }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+    .dashboard{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .dashboard-preview{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .pr_t{
+        position: fixed;
+    }
+    .contentleft{
+        padding: 15% 8%;
+    }
+    .pddr{
+        padding: 0;
+    }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+    .dashboard{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .dashboard-preview{
+        width:100%;
+        padding: 8% 8%;
+    }
+    .contentleft{
+        padding: 15% 8%;
+    }
+    .pddr{
+        padding: 0;
+    }
+}
+@media (min-width: 576px) and (max-width: 767px) {
+    .dashboard{
+        width:100%;
+        padding:15% 8%;
+    }
+    div .top_pd{
+        padding-top:10%;
+    }
+    .dashboard-preview{
+        width:100%;
+        padding: 20% 8%;
+    }
+    .block{
+        display:none;
+    }
+    #con a{
+        display:none;
+    }
+    .contentleft{
+        padding: 15% 8%;
+    }
+}
+@media (max-width: 575px) {
+    .dashboard{
+        width:100%;
+        padding: 15% 8%;
+    }
+    div .top_pd{
+        padding-top:10%;
+    }
+    .block{
+        display:none;
+    }
+    #con a{
+        display:none;
+    }
+    .dashboard-preview{
+        width:100%;
+        padding: 30% 8%;
+    }
+    .contentleft{
+        padding: 15% 8%;
+    }
+}
+
+pre {
+    background-color:white;
+}
+
+input[class="check-fv"]{
+    display:none;
+  }
+  input[class="check-fv"]+span:before{
+    content:"";
+    display:inline-block;
+    background: url('assets/images/form_checkbox.png') no-repeat;
+    height: 25px;
+    margin-left: 5px;
+    margin-bottom: -7px;
+    width: 25px;
+    background-size: 20px 20px;
+    cursor:pointer;
+  }
+  
+  input[class="check-fv"]:checked+span:before{
+    background: url('assets/images/form_checkbox_on.png') no-repeat;
+    background-size: 20px 20px;
+  }

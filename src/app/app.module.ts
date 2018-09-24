@@ -6,6 +6,9 @@ import { routing } from './app.routing';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { EditstoryComponent } from './editstory/editstory.component';
+import { EheaderComponent } from './editstory/eheader/eheader.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
@@ -14,10 +17,13 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     PagesModule,
     routing,
-    HttpClientModule
+    HttpClientModule,
+    BsDatepickerModule.forRoot()
   ],
   declarations: [
     AppComponent,
+    EditstoryComponent,
+    EheaderComponent,
   ],
   bootstrap: [AppComponent]
 })
